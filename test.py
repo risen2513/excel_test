@@ -1,6 +1,6 @@
 import xlrd
 import xlwt
-from datetime
+import datetime
 
 
 def testXlrd(filename):
@@ -9,9 +9,11 @@ def testXlrd(filename):
     print "Worksheet name(s): ", book.sheet_names()[0]
     print 'book.nsheets', book.nsheets
     print 'sh.name:', sh.name, 'sh.nrows:', sh.nrows, 'sh.ncols:', sh.ncols
-    print 'A1:', sh.cell_value(rowx=0, colx=1)
-    # 如果A3的内容为中文
-    print 'A2:', sh.cell_value(0, 2).encode('gb2312')
+    print 'A:', sh.cell_value(rowx=0, colx=0)
+    print 'Adata:', sh.cell_value(rowx=1, colx=0)
+    print 'B:', sh.cell_value(0, 1)
+    print 'Bdata:', sh.cell_value(1, colx=1)
+    # print 'A2:', sh.cell_value(0, 2).encode('gb2312')
 
 
 def testXlwt(filename):
@@ -20,6 +22,8 @@ def testXlwt(filename):
     book.add_sheet('word')
     sheet1.write(0, 0, 'hello')
     sheet1.write(0, 1, 'world')
+    sheet1.write(0, 2, 'test')
+    sheet1.write(1, 2, 'testdata')
     row1 = sheet1.row(1)
     row1.write(0, 'A2')
     row1.write(1, 'B2')
@@ -39,8 +43,8 @@ def testXlwt(filename):
 
 
 if __name__ == '__main__':
-    testXlrd(u'你好。xls')
     testXlwt('helloWord.xls')
+    testXlrd('helloWord.xls')
     base = datetime.date(1899, 12, 31).toordinal()
     tmp = datetime.date(2013, 07, 16).toordinal()
     print datetime.date.fromordinal(tmp + base - 1).weekday()
